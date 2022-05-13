@@ -48,111 +48,111 @@ class _MeetingHistoryScreenState extends State<MeetingHistoryScreen> {
         ],
       ),
       body: _isLoading
-          ? Center(
+          ? const Center(
               child: CircularProgressIndicator(),
             )
           : Column(
-              // mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Divider(height: 0),
                 const SizedBox(height: 14),
                 Container(
                   child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const Text(
-                          "Personal Meeting ID",
-                          style: TextStyle(
-                            fontSize: 16,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const Text(
+                        "Personal Meeting ID",
+                        style: TextStyle(
+                          fontSize: 16,
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            personalMeetingID,
+                            style: const TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ),
-                        const SizedBox(height: 10),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              personalMeetingID,
-                              style: const TextStyle(
-                                fontSize: 22,
-                                fontWeight: FontWeight.bold,
-                              ),
+                          const SizedBox(width: 10),
+                          GestureDetector(
+                            onTap: () => {
+                              Clipboard.setData(
+                                  ClipboardData(text: personalMeetingID)),
+                              showSnackBar(
+                                  context,
+                                  "Meeting ID copied to clipboard",
+                                  Colors.green,
+                                  Colors.white,
+                                  2000),
+                            },
+                            child: const Icon(
+                              Icons.content_copy,
+                              size: 20,
                             ),
-                            const SizedBox(width: 10),
-                            GestureDetector(
-                              onTap: () => {
-                                Clipboard.setData(
-                                    ClipboardData(text: personalMeetingID)),
-                                showSnackBar(
-                                    context,
-                                    "Meeting ID copied to clipboard",
-                                    Colors.green,
-                                    Colors.white,
-                                    2000),
-                              },
-                              child: const Icon(
-                                Icons.content_copy,
-                                size: 20,
+                          )
+                        ],
+                      ),
+                      const SizedBox(height: 10),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          GestureDetector(
+                            onTap: () => {},
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: darkGrayColor,
+                                borderRadius: BorderRadius.circular(5),
                               ),
-                            )
-                          ],
-                        ),
-                        const SizedBox(height: 10),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            GestureDetector(
-                              onTap: () => {},
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: darkGrayColor,
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                padding: const EdgeInsets.only(
-                                  left: 14,
-                                  right: 14,
-                                  top: 5,
-                                  bottom: 5,
-                                ),
-                                child: const Text("Start"),
+                              padding: const EdgeInsets.only(
+                                left: 14,
+                                right: 14,
+                                top: 5,
+                                bottom: 5,
                               ),
+                              child: const Text("Start"),
                             ),
-                            const SizedBox(width: 10),
-                            GestureDetector(
-                              onTap: () => {},
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: darkGrayColor,
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                padding: const EdgeInsets.only(
-                                  left: 14,
-                                  right: 14,
-                                  top: 5,
-                                  bottom: 5,
-                                ),
-                                child: const Text("Send Invitation"),
+                          ),
+                          const SizedBox(width: 10),
+                          GestureDetector(
+                            onTap: () => {},
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: darkGrayColor,
+                                borderRadius: BorderRadius.circular(5),
                               ),
-                            ),
-                            const SizedBox(width: 10),
-                            GestureDetector(
-                              onTap: () => {},
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: darkGrayColor,
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                padding: const EdgeInsets.only(
-                                  left: 14,
-                                  right: 14,
-                                  top: 5,
-                                  bottom: 5,
-                                ),
-                                child: const Text("Edit"),
+                              padding: const EdgeInsets.only(
+                                left: 14,
+                                right: 14,
+                                top: 5,
+                                bottom: 5,
                               ),
+                              child: const Text("Send Invitation"),
                             ),
-                          ],
-                        )
-                      ]),
+                          ),
+                          const SizedBox(width: 10),
+                          GestureDetector(
+                            onTap: () => {},
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: darkGrayColor,
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                              padding: const EdgeInsets.only(
+                                left: 14,
+                                right: 14,
+                                top: 5,
+                                bottom: 5,
+                              ),
+                              child: const Text("Edit"),
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
                 ),
                 const SizedBox(height: 14),
                 const Divider(height: 0),
@@ -188,7 +188,7 @@ class _MeetingHistoryScreenState extends State<MeetingHistoryScreen> {
                           itemBuilder: (context, index) {
                             return ListTile(
                               title: Text(meetings[index]),
-                              trailing: Icon(Icons.keyboard_arrow_right),
+                              trailing: const Icon(Icons.keyboard_arrow_right),
                             );
                           },
                         ),

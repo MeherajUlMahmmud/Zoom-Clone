@@ -4,7 +4,6 @@ import 'package:zoom_clone/screens/meeting_history_screen.dart';
 import 'package:zoom_clone/screens/meeting_screen.dart';
 import 'package:zoom_clone/screens/more_screen.dart';
 import 'package:zoom_clone/utils/colors.dart';
-import 'package:zoom_clone/widgets/custom_button.dart';
 
 import '../resources/auth_methods.dart';
 
@@ -29,7 +28,6 @@ class _HomeScreenState extends State<HomeScreen> {
     const MeetingHistoryScreen(),
     const ContactScreen(),
     const MoreScreen(),
-    CustomButton(text: 'Log Out', onPressed: () => AuthMethods().signOut()),
   ];
 
   @override

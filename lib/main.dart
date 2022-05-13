@@ -6,7 +6,6 @@ import 'package:zoom_clone/screens/home_screen.dart';
 import 'package:zoom_clone/screens/login_screen.dart';
 import 'package:zoom_clone/utils/colors.dart';
 import 'package:zoom_clone/utils/constants.dart';
-import 'package:zoom_clone/utils/utils.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,7 +14,7 @@ void main() async {
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
-      systemNavigationBarColor: footerColor, // navigation bar color
+      systemNavigationBarColor: footerColor,
       statusBarColor: backgroundColor,
     ),
   );
@@ -28,32 +27,33 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Flutter Demo',
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData.dark().copyWith(
-          appBarTheme: const AppBarTheme(
-            color: backgroundColor,
-            elevation: 0,
-          ),
-          scaffoldBackgroundColor: backgroundColor,
+      title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData.dark().copyWith(
+        appBarTheme: const AppBarTheme(
+          color: backgroundColor,
+          elevation: 0,
         ),
-        routes: {
-          LOGIN_SCREEN: (context) => const LoginScreen(),
-          HOME_SCREEN: (context) => const HomeScreen(),
+        scaffoldBackgroundColor: backgroundColor,
+      ),
+      routes: {
+        LOGIN_SCREEN: (context) => const LoginScreen(),
+        HOME_SCREEN: (context) => const HomeScreen(),
+      },
+      home: StreamBuilder(
+        stream: AuthMethods().authChanges,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          if (snapshot.hasData) {
+            return const HomeScreen();
+          }
+          return const LoginScreen();
         },
-        home: StreamBuilder(
-          stream: AuthMethods().authChanges,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-            if (snapshot.hasData) {
-              return const HomeScreen();
-            }
-            return const LoginScreen();
-          },
-        ));
+      ),
+    );
   }
 }

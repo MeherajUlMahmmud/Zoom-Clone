@@ -30,10 +30,11 @@ class CustomButton extends StatelessWidget {
             50,
           ),
           shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30),
-              side: const BorderSide(
-                color: blueColor,
-              )),
+            borderRadius: BorderRadius.circular(30),
+            side: const BorderSide(
+              color: blueColor,
+            ),
+          ),
         ),
       ),
     );

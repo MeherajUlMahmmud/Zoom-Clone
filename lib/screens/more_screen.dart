@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zoom_clone/resources/auth_methods.dart';
 import 'package:zoom_clone/utils/colors.dart';
-import 'package:zoom_clone/utils/utils.dart';
 import 'package:zoom_clone/widgets/custom_button.dart';
 
 class MoreScreen extends StatefulWidget {
@@ -44,13 +43,13 @@ class _MoreScreenState extends State<MoreScreen> {
         centerTitle: true,
       ),
       body: _isLoading
-          ? Center(
+          ? const Center(
               child: CircularProgressIndicator(),
             )
           : Container(
               child: Column(
                 children: [
-                  Divider(),
+                  const Divider(),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
@@ -107,8 +106,9 @@ class _MoreScreenState extends State<MoreScreen> {
                     ),
                   ),
                   CustomButton(
-                      text: 'Log Out',
-                      onPressed: () => AuthMethods().signOut()),
+                    text: 'Log Out',
+                    onPressed: () => AuthMethods().signOut(),
+                  ),
                 ],
               ),
             ),

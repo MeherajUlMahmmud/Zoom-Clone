@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:zoom_clone/resources/auth_methods.dart';
 import 'package:zoom_clone/utils/constants.dart';
-import 'package:zoom_clone/utils/utils.dart';
 import 'package:zoom_clone/widgets/custom_button.dart';
 
 class LoginScreen extends StatefulWidget {

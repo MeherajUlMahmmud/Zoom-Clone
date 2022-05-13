@@ -70,6 +70,7 @@ class AuthMethods {
       removeFromLocalStorage("email");
       removeFromLocalStorage("photoUrl");
       removeFromLocalStorage("uid");
+      removeFromLocalStorage("personalMeetingID");
     } catch (e) {
       print(e);
     }

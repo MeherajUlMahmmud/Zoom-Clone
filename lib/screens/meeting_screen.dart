@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:zoom_clone/utils/colors.dart';
-import 'package:zoom_clone/utils/utils.dart';
 import 'package:zoom_clone/widgets/home_meeting_button.dart';
 
 class MeetingScreen extends StatefulWidget {
