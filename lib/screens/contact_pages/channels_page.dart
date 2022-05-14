@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:zoom_clone/widgets/custom_divider.dart';
 
 class ChannelsPage extends StatefulWidget {
   const ChannelsPage({Key? key}) : super(key: key);
@@ -11,13 +12,12 @@ class _ChannelsPageState extends State<ChannelsPage> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Divider(height: 0),
+        const CustomDivider(),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Container(
-            // height: 60,
             padding: const EdgeInsets.symmetric(horizontal: 20),
             decoration: BoxDecoration(
               color: Colors.grey[800],
@@ -31,14 +31,14 @@ class _ChannelsPageState extends State<ChannelsPage> {
               ],
             ),
             child: Row(
-              children: [
-                const SizedBox(width: 5),
+              children: const [
+                SizedBox(width: 5),
                 Icon(
                   Icons.search,
                   size: 25,
                   color: Colors.grey,
                 ),
-                const SizedBox(width: 10),
+                SizedBox(width: 10),
                 Expanded(
                   child: TextField(
                     decoration: InputDecoration(
@@ -51,20 +51,24 @@ class _ChannelsPageState extends State<ChannelsPage> {
             ),
           ),
         ),
-        const Divider(height: 0),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: const Text(
+        const CustomDivider(),
+        const Padding(
+          padding: EdgeInsets.fromLTRB(8.0, 14.0, 8.0, 14.0),
+          child: Text(
             "My Contacts",
-            textAlign: TextAlign.start,
+            textAlign: TextAlign.left,
             style: TextStyle(
               fontSize: 30,
               fontWeight: FontWeight.bold,
-              color: Colors.grey,
+              color: Colors.white,
             ),
           ),
         ),
-        const Divider(height: 0),
+        const CustomDivider(),
+        // dropdown
+        
+        const CustomDivider(),
+        // dropdown
       ],
     );
   }

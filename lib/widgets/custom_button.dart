@@ -4,11 +4,15 @@ import 'package:zoom_clone/utils/colors.dart';
 class CustomButton extends StatelessWidget {
   final String text;
   final VoidCallback? onPressed;
+  final Color bgColor;
+  final bool disabled;
 
   const CustomButton({
     Key? key,
     required this.text,
     required this.onPressed,
+    required this.bgColor,
+    this.disabled = false,
   }) : super(key: key);
 
   @override
@@ -16,23 +20,23 @@ class CustomButton extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(30.0),
       child: ElevatedButton(
-        onPressed: onPressed,
+        onPressed: disabled ? () {} : onPressed,
         child: Text(
           text,
           style: const TextStyle(
-            fontSize: 14,
+            fontSize: 16,
           ),
         ),
         style: ElevatedButton.styleFrom(
-          primary: blueColor,
+          primary: disabled ? darkGrayColor : bgColor,
           minimumSize: const Size(
             double.infinity,
             50,
           ),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30),
-            side: const BorderSide(
-              color: blueColor,
+            borderRadius: BorderRadius.circular(15),
+            side: BorderSide(
+              color: disabled ? darkGrayColor : bgColor,
             ),
           ),
         ),

@@ -2,9 +2,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:jitsi_meet/jitsi_meet.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zoom_clone/utils/colors.dart';
 import 'package:zoom_clone/utils/utils.dart';
+import 'package:zoom_clone/widgets/custom_divider.dart';
+
+import '../resources/jitsi_meet_methods.dart';
 
 class MeetingHistoryScreen extends StatefulWidget {
   const MeetingHistoryScreen({Key? key}) : super(key: key);
@@ -14,23 +18,113 @@ class MeetingHistoryScreen extends StatefulWidget {
 }
 
 class _MeetingHistoryScreenState extends State<MeetingHistoryScreen> {
-  var _isLoading = false;
-  late String personalMeetingID;
+  bool _isLoading = false;
+  TextEditingController _subjectController = TextEditingController();
+  final JitsiMeetMethods _jitsiMeetMethods = JitsiMeetMethods();
+  late String personalMeetingID, username, email, photoUrl, subject;
+  late String _subjectError = '';
   var meetings = [];
 
   @override
   void initState() {
     _isLoading = true;
+    _subjectController = TextEditingController(text: 'Meeting');
     getData();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _subjectController.dispose();
+    JitsiMeet.removeAllListeners();
+    super.dispose();
   }
 
   getData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       personalMeetingID = prefs.getString('personalMeetingID')!;
+      username = prefs.getString('username')!;
+      email = prefs.getString('email')!;
+      photoUrl = prefs.getString('photoUrl')!;
       _isLoading = false;
     });
+  }
+
+  createNewMeeting() async {
+    setState(() {
+      subject = _subjectController.text;
+    });
+
+    _jitsiMeetMethods.createNewMeeting(
+      roomName: personalMeetingID,
+      isAudioMuted: true,
+      isVideoMuted: true,
+      username: username,
+      email: email,
+      photoUrl: photoUrl,
+      subject: subject,
+    );
+  }
+
+  Future<void> _showMyDialog() async {
+    Widget posButton = TextButton(
+      child: const Text("Start Meeting"),
+      onPressed: () {
+        if (_subjectController.text.isEmpty) {
+          setState(() {
+            _subjectError = '*Meeting subject cannot be empty';
+          });
+          showSnackBar(context, _subjectError, Colors.red, Colors.white, 1500);
+        } else {
+          setState(() {
+            _subjectError = "";
+          });
+          Navigator.of(context).pop();
+          createNewMeeting();
+        }
+      },
+    );
+
+    Widget negButton = TextButton(
+      child: const Text("Cancel"),
+      onPressed: () {
+        Navigator.of(context).pop();
+      },
+    );
+
+    AlertDialog alert = AlertDialog(
+      title: const Text('Meeting Subject'),
+      content: Container(
+        padding: const EdgeInsets.only(left: 5, right: 5),
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: Colors.grey,
+            width: 1.0,
+          ),
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        child: TextField(
+          controller: _subjectController,
+          decoration: const InputDecoration(
+            hintText: 'Enter a meeting subject',
+            border: InputBorder.none,
+          ),
+        ),
+      ),
+      actions: <Widget>[
+        negButton,
+        posButton,
+      ],
+    );
+
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
   }
 
   @override
@@ -53,7 +147,7 @@ class _MeetingHistoryScreenState extends State<MeetingHistoryScreen> {
             )
           : Column(
               children: [
-                const Divider(height: 0),
+                const CustomDivider(),
                 const SizedBox(height: 14),
                 Container(
                   child: Column(
@@ -100,7 +194,7 @@ class _MeetingHistoryScreenState extends State<MeetingHistoryScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           GestureDetector(
-                            onTap: () => {},
+                            onTap: _showMyDialog,
                             child: Container(
                               decoration: BoxDecoration(
                                 color: darkGrayColor,
@@ -155,7 +249,7 @@ class _MeetingHistoryScreenState extends State<MeetingHistoryScreen> {
                   ),
                 ),
                 const SizedBox(height: 14),
-                const Divider(height: 0),
+                const CustomDivider(),
                 const SizedBox(height: 10),
                 meetings.isEmpty
                     ? Column(
@@ -181,7 +275,7 @@ class _MeetingHistoryScreenState extends State<MeetingHistoryScreen> {
                           ),
                         ],
                       )
-                    : Container(
+                    : SizedBox(
                         height: 200,
                         child: ListView.builder(
                           itemCount: meetings.length,

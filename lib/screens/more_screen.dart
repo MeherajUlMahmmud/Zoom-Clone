@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zoom_clone/resources/auth_methods.dart';
 import 'package:zoom_clone/utils/colors.dart';
+import 'package:zoom_clone/utils/constants.dart';
 import 'package:zoom_clone/widgets/custom_button.dart';
+import 'package:zoom_clone/widgets/custom_divider.dart';
 
 class MoreScreen extends StatefulWidget {
   const MoreScreen({Key? key}) : super(key: key);
@@ -46,11 +48,14 @@ class _MoreScreenState extends State<MoreScreen> {
           ? const Center(
               child: CircularProgressIndicator(),
             )
-          : Container(
-              child: Column(
-                children: [
-                  const Divider(),
-                  Padding(
+          : Column(
+              children: [
+                const CustomDivider(),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, PROFILE_SCREEN);
+                  },
+                  child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
                       margin: const EdgeInsets.only(top: 20),
@@ -105,12 +110,13 @@ class _MoreScreenState extends State<MoreScreen> {
                       ),
                     ),
                   ),
-                  CustomButton(
-                    text: 'Log Out',
-                    onPressed: () => AuthMethods().signOut(),
-                  ),
-                ],
-              ),
+                ),
+                CustomButton(
+                  text: 'Log Out',
+                  onPressed: () => AuthMethods().signOut(),
+                  bgColor: Colors.red,
+                ),
+              ],
             ),
     );
   }

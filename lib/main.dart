@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:zoom_clone/resources/auth_methods.dart';
 import 'package:zoom_clone/screens/home_screen.dart';
 import 'package:zoom_clone/screens/login_screen.dart';
+import 'package:zoom_clone/screens/profile_screen.dart';
+import 'package:zoom_clone/screens/video_call_screen.dart';
 import 'package:zoom_clone/utils/colors.dart';
 import 'package:zoom_clone/utils/constants.dart';
 
@@ -39,6 +41,8 @@ class MyApp extends StatelessWidget {
       routes: {
         LOGIN_SCREEN: (context) => const LoginScreen(),
         HOME_SCREEN: (context) => const HomeScreen(),
+        VIDEO_CALL_SCREEN: (context) => const VideoCallScreen(),
+        PROFILE_SCREEN: (context) => const ProfileScreen(),
       },
       home: StreamBuilder(
         stream: AuthMethods().authChanges,

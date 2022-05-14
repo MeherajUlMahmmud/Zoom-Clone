@@ -5,8 +5,6 @@ import 'package:zoom_clone/screens/meeting_screen.dart';
 import 'package:zoom_clone/screens/more_screen.dart';
 import 'package:zoom_clone/utils/colors.dart';
 
-import '../resources/auth_methods.dart';
-
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
