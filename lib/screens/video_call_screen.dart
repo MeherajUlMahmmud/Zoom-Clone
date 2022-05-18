@@ -26,22 +26,25 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
 
   @override
   void initState() {
+    super.initState();
+
     _meetingIDController = TextEditingController();
     _nameController = TextEditingController();
     getData();
-    super.initState();
   }
 
   @override
   void dispose() {
+    super.dispose();
+
     _meetingIDController.dispose();
     _nameController.dispose();
     JitsiMeet.removeAllListeners();
-    super.dispose();
   }
 
   getData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+
     setState(() {
       username = prefs.getString('username')!;
       email = prefs.getString('email')!;
@@ -51,14 +54,15 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
   }
 
   _joinMeeting() {
-    // _jitsiMeetMethods.createNewMeeting(
-    //   roomName: _meetingIDController.text,
-    //   isAudioMuted: isAudioMuted,
-    //   isVideoMuted: isVideoMuted,
-    //   username: username,
-    //   email: email,
-    //   photoUrl: photoUrl,
-    // );
+    _jitsiMeetMethods.createNewMeeting(
+      roomName: _meetingIDController.text,
+      isAudioMuted: isAudioMuted,
+      isVideoMuted: isVideoMuted,
+      username: username,
+      email: email,
+      photoUrl: photoUrl,
+      subject: 'Meeting',
+    );
   }
 
   @override
@@ -131,10 +135,12 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
                 const SizedBox(height: 20),
                 const Padding(
                   padding: EdgeInsets.fromLTRB(10, 0, 0, 5),
-                  child: Text("JOIN OPTIONS",
-                  style: TextStyle(
-                    color: Colors.white70,
-                  ),),
+                  child: Text(
+                    "JOIN OPTIONS",
+                    style: TextStyle(
+                      color: Colors.white70,
+                    ),
+                  ),
                 ),
                 const SizedBox(height: 5),
                 Container(
@@ -162,7 +168,7 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
     );
   }
 
-    onAudioMuted(bool val) {
+  onAudioMuted(bool val) {
     setState(() {
       isAudioMuted = val;
     });
